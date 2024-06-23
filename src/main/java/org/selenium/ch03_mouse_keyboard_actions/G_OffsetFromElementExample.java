@@ -8,23 +8,22 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.concurrent.TimeUnit;
 
-public class D_ClickAndHoldExample {
+public class G_OffsetFromElementExample {
     public static void main(String[] args) throws InterruptedException {
         WebDriver driver = new ChromeDriver();
+
         driver.get("https://example.com");
 
-        WebElement elementToClickAndHold = driver.findElement(By.cssSelector("div h1"));
-
-        TimeUnit.SECONDS.sleep(2);
+        WebElement h1Element = driver.findElement(By.xpath("/html/body/div[1]/h1"));
 
         Actions actions = new Actions(driver);
-        actions.clickAndHold(elementToClickAndHold).moveByOffset(150, 60).perform();
 
-        // Additional actions like moving the element can be performed here
-        TimeUnit.SECONDS.sleep(2);
+        actions.moveToElement(h1Element)
+                .moveByOffset(200, 200)
+                .contextClick()
+                .perform();
 
-        actions.release().perform(); // Don't forget to release the click
-
+        TimeUnit.SECONDS.sleep(5);
         driver.quit();
     }
 }

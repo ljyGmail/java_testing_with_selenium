@@ -8,23 +8,24 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.concurrent.TimeUnit;
 
-public class D_ClickAndHoldExample {
+public class J_DragAndDropExample {
     public static void main(String[] args) throws InterruptedException {
         WebDriver driver = new ChromeDriver();
-        driver.get("https://example.com");
-
-        WebElement elementToClickAndHold = driver.findElement(By.cssSelector("div h1"));
-
+        driver.get("https://jqueryui.com/droppable/");
         TimeUnit.SECONDS.sleep(2);
+
+        WebElement frame = driver.findElement(By.xpath("//*[@id=\"content\"]/iframe"));
+        driver.switchTo().frame(frame);
+
+        WebElement srcElement = driver.findElement(By.xpath("//*[@id='draggable']"));
+        WebElement targetElement = driver.findElement(By.xpath("//*[@id=\"droppable\"]"));
 
         Actions actions = new Actions(driver);
-        actions.clickAndHold(elementToClickAndHold).moveByOffset(150, 60).perform();
-
-        // Additional actions like moving the element can be performed here
         TimeUnit.SECONDS.sleep(2);
 
-        actions.release().perform(); // Don't forget to release the click
+        actions.dragAndDrop(srcElement, targetElement).perform();
 
+        TimeUnit.SECONDS.sleep(2);
         driver.quit();
     }
 }
